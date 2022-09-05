@@ -1,0 +1,18 @@
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+
+map = plt.imread("wc2.1_10m_tmin_01.tif")
+# print(map.shape)
+# (1080, 2160, 4)
+# this shows us that we have a 1080p resolution 2-d image with four values per pixel
+# i reshaped the data to be a list of all the pixels:
+map2 = np.reshape(map, (1080*2160, -1))
+# print(map2.shape)
+# (2332800, 4) total # of pixels
+df = pd.DataFrame(map2, columns = ['Column_A','Column_B','Column_C','Column_D'])
+# print(df.loc[(df['Column_A'] == 1) & (df['Column_B'] == 2)])
+# values range from 0 - 27 in A-C
+# Column_D is always 255
+
+plt.imsave("map.png", map)
